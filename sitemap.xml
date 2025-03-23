@@ -2,69 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://x406.cn/live2d-widget/tsconfig.json</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/live2d-widget/package.json</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/live2d-widget/dist/waifu-tips.json</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/live2d-widget/demo/login</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/live2d-widget/demo/demo</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/live2d-widget/README</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/live2d-widget/README.en</loc>
-    
-    <lastmod>2025-03-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://x406.cn/posts/4b60812/</loc>
     
     <lastmod>2025-03-23</lastmod>
@@ -279,6 +216,13 @@
   </url>
   
   <url>
+    <loc>https://x406.cn/categories/QQBot/</loc>
+    <lastmod>2025-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://x406.cn/categories/Windows/</loc>
     <lastmod>2025-03-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -314,14 +258,14 @@
   </url>
   
   <url>
-    <loc>https://x406.cn/categories/Termux/%E5%AE%89%E5%8D%93/</loc>
+    <loc>https://x406.cn/categories/Windows/WSL/</loc>
     <lastmod>2025-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x406.cn/categories/Windows/WSL/</loc>
+    <loc>https://x406.cn/categories/Termux/%E5%AE%89%E5%8D%93/</loc>
     <lastmod>2025-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -335,7 +279,7 @@
   </url>
   
   <url>
-    <loc>https://x406.cn/categories/QQBot/</loc>
+    <loc>https://x406.cn/categories/%E5%A5%BD%E7%89%A9%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2025-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -343,13 +287,6 @@
   
   <url>
     <loc>https://x406.cn/categories/%E5%8D%9A%E5%AE%A2%E5%91%8A%E7%9F%A5/</loc>
-    <lastmod>2025-03-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/categories/%E5%A5%BD%E7%89%A9%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2025-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
