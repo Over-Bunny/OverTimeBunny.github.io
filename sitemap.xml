@@ -237,20 +237,6 @@
   </url>
   
   <url>
-    <loc>https://x406.cn/categories/Windows/WSL/</loc>
-    <lastmod>2025-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/categories/Windows/Hype-v/</loc>
-    <lastmod>2025-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x406.cn/categories/Linux/</loc>
     <lastmod>2025-04-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -265,7 +251,7 @@
   </url>
   
   <url>
-    <loc>https://x406.cn/categories/Termux/%E5%AE%89%E5%8D%93/</loc>
+    <loc>https://x406.cn/categories/Windows/Hype-v/</loc>
     <lastmod>2025-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -279,7 +265,14 @@
   </url>
   
   <url>
-    <loc>https://x406.cn/categories/%E5%A5%BD%E7%89%A9%E6%8E%A8%E8%8D%90/</loc>
+    <loc>https://x406.cn/categories/Windows/WSL/</loc>
+    <lastmod>2025-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x406.cn/categories/Termux/%E5%AE%89%E5%8D%93/</loc>
     <lastmod>2025-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -287,6 +280,13 @@
   
   <url>
     <loc>https://x406.cn/categories/qsign/%E5%AE%89%E5%8D%93/</loc>
+    <lastmod>2025-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x406.cn/categories/%E5%A5%BD%E7%89%A9%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2025-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
