@@ -8,23 +8,115 @@
 <meta property="og:image" content="https://x406.cn/img/3.png">
 <meta property="article:author" content="重装小兔">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://x406.cn/img/3.png"><link rel="shortcut icon" href="/img/3.png"><link rel="canonical" href="https://x406.cn/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="https://x406.cn/img/3.png"><link rel="shortcut icon" href="/img/3.png"><link rel="canonical" href="https://x406.cn/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.3.5"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: undefined,
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":250},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
     homepage: true,
     post: true
   },
-  runtime: '天',
+  runtime: '',
   dateSuffix: {
     just: '刚刚',
     min: '分钟前',
@@ -33,14 +125,14 @@
     month: '个月前'
   },
   copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
   infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
     buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
@@ -49,191 +141,25 @@
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: '重装小兔的TRSS课堂',
-  isPost: false,
-  isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2025-04-03 15:49:00'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
-
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
-
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          const now = new Date()
-          const hour = now.getHours()
-          const isNight = hour <= 6 || hour >= 18
-          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
-          else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/sweetalert.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="重装小兔的TRSS课堂" type="application/atom+xml">
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/3.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/posts/83ff2157/"><i class="fa-fw fas fa-question-circle"></i><span> 常见问题汇总</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Windows</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/posts/beeac218/"><i class="fa-fw fas fa-terminal"></i><span> MYSY2</span></a></li><li><a class="site-page child" href="/posts/744e4646/"><i class="fa-fw fab fa-linux"></i><span> WSL</span></a></li><li><a class="site-page child" href="/posts/48ced98/"><i class="fa-fw fas fa-server"></i><span> Hyper-v</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/posts/7949d787/"><i class="fa-fw fab fa-linux"></i><span> Linux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/53427649/"><i class="fa-fw fas fa-mobile-alt"></i><span> Termux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/4d0f8001/"><i class="fa-fw fas fa-robot"></i><span> QQBot</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://over.x406.cn"><i class="fa-fw fas fa-external-link-alt"></i><span> 找我聊天</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/4.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="重装小兔的TRSS课堂"><span class="site-name">重装小兔的TRSS课堂</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/posts/83ff2157/"><i class="fa-fw fas fa-question-circle"></i><span> 常见问题汇总</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> Windows</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/posts/beeac218/"><i class="fa-fw fas fa-terminal"></i><span> MYSY2</span></a></li><li><a class="site-page child" href="/posts/744e4646/"><i class="fa-fw fab fa-linux"></i><span> WSL</span></a></li><li><a class="site-page child" href="/posts/48ced98/"><i class="fa-fw fas fa-server"></i><span> Hyper-v</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/posts/7949d787/"><i class="fa-fw fab fa-linux"></i><span> Linux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/53427649/"><i class="fa-fw fas fa-mobile-alt"></i><span> Termux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/4d0f8001/"><i class="fa-fw fas fa-robot"></i><span> QQBot</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://over.x406.cn"><i class="fa-fw fas fa-external-link-alt"></i><span> 找我聊天</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">重装小兔的TRSS课堂</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://gitee.com/OvertimeBunny" target="_blank" title="Gitee"><i class="fas fa-code-branch" style="color: #C71D23;"></i></a><a class="social-icon" href="mailto:v17360963@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://t.me/+ivH_1de8P-U0NWY1" target="_blank" title="Telegram"><i class="fab fa-telegram" style="color: #0088cc;"></i></a><a class="social-icon" href="https://qm.qq.com/q/yJ0tpfSpz2" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #1DA1F2;"></i></a><a class="social-icon" href="https://steamcommunity.com/profiles/76561199211649020" target="_blank" title="Steam"><i class="fab fa-steam" style="color: #1b2838;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/744e4646/" title="使用WSL和TRSS Script搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/WSL/1.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用WSL和TRSS Script搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/744e4646/" title="使用WSL和TRSS Script搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用WSL和TRSS Script搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-07T17:35:51.351Z" title="发表于 2024-05-08 01:35:51">2024-05-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/WSL/">WSL</a></span></div><div class="content">提示：在使用WSL前请卸载你的安卓模拟器！为什么？因为现在模拟器的实现逻辑，大部分都是和子系统WSL冲突的很多厂商为了市场份额，市场占有率，不顾用户的数据情况，会自动给你卸载并删除子系统和子系统内的数据，也不给你个操作提示，纯属流氓行为。首先，开启你的WSL这里提供两个方法方法一：打开终端管理器
-输入以下内容1dism /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-
-继续输入1dism /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-
-然后重启电脑重启后，重新打开终端管理器，继续输入1wsl --set-default-version 2
-1wsl --update
-
-方法二：
-打开设置
-设置地区为美国
-打开微软应用商店搜索并安装亚马逊平台（Amazon Appstore）1Amazon Appstore
-点击一键跳转下载
-
-该方法在这之前都有效
-之后正常更 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/48ced98/" title="使用Hype_v和TRSS Script搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Hype_v/9.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用Hype_v和TRSS Script搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/48ced98/" title="使用Hype_v和TRSS Script搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用Hype_v和TRSS Script搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-07T17:35:51.347Z" title="发表于 2024-05-08 01:35:51">2024-05-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/Hype-v/">Hype_v</a></span></div><div class="content">
-    
-
-
-第一步下载ISO下载签名文件下载Git确保两个文件在同一文件夹下！
-右键，选择Open Git Bash here执行：1gpg --keyserver-options auto-key-retrieve --verify archlinux-2024.10.01-x86_64.iso.sig
-
-第二步
-右键小窗户按钮，点击打开终端管理员输入以下指令启用Hype_v1Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-或1DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
-然后重启电脑重启后打开虚拟机管理后台，点击新建，新建一个硬盘
-找一个空间足够大的位置
-创建默认的磁盘即可（自动）然后继续创建一个虚拟机（一代和二代没多大区别）[默认]关闭安全和检查！
-配置网络，默认的Default Switch
-继续，添加硬件DvD驱动器选择刚刚签名后的ISO文件设置完成后连接启动加载比较久，耐心等待（大概1分钟 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/beeac218/" title="使用MYSY2和TRSS Script搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/MYSY2/1.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用MYSY2和TRSS Script搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/beeac218/" title="使用MYSY2和TRSS Script搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用MYSY2和TRSS Script搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-07T17:35:51.348Z" title="发表于 2024-05-08 01:35:51">2024-05-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a></span></div><div class="content">首先，当然是下载MYSY2了
-    点击下载
-
-
-一直点击下一步即可
-安装完成后，打开，右键，点击Options
-点击Windows
-设置语音 zh-CN
-点击 Save
-右键 试试，汉化完成了
-正式开始安崽输入以下命令，开始使用TRSS Script脚本1bash &lt;(curl -L gitee.com/TimeRainStarSky/TRSS_AllBot/raw/main/Install.sh)
-等待安装完成后输入 tsab启动
-1tsab
-之后小键盘输入 8安装TRSS崽
-崽安装后，别安装其他插件，不然等会标准输入可能卡住选择你需要的 适配器
-如果只是搭建QQ机器人，那首推使用 ICQQ在终端直接输入命令调用标准输入来安装即可1#安装ICQQ-Plugin
-
-提示：按住shift键不放，鼠标右键即可粘贴内容，拖拽后右键则可以选择复制内容然后重新打开崽之后输入你的QQ签名API1#QQ签名https://qsign.trpgbot.com
-
-1#重启
-
-之后设置你想要充当机器人的 QQ小号#QQ设置[QQ号]:[密码]:2举例：1#QQ设置114514:123456:2
- ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/7949d787/" title="使用Linux搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Linux/1.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用Linux搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7949d787/" title="使用Linux搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用Linux搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-09T21:59:48.579Z" title="发表于 2024-05-10 05:59:48">2024-05-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">首先，在你购买服务器的时候，检查一下服务器的可选地区中是否有和你所在地一致的服务器举例：我人在杭州，那我服务器的买的杭州地区的服务器为什么？因为现在90签名过检基本不会报45，但是大概率会237，这时候只能扫码登录（扫描以寄） 其次检查你的Linux系统CentOS系统的出门右转，给我去重装系统！问为什么？
-CentOS 8系统2021年12月31日已停止维护服务，CentOS 7系统将于2024年06月30日停止维护服务。 CentOS官方不再提供CentOS 9及后续版本，不再支持新的软件和补丁更新。 CentOS用户现有业务随时面临宕机和安全风险，并无法确保及时恢复。所以，该换系统了！曾经，CentOS的确是安崽的不二选择，但是现在CentOS停止维护，而崽在不停更新现在，CentOS的内核已经兼容不了日益臃肿的云崽了，TRSS脚本是本地映射的容器环境，一些情况下需要本地修改，过老的内核会很麻烦，该换就换，你不换那CentOS的内核自己维护去，各种BUG自己处理去，我尊称你一声大佬，膜拜你一下现在玩云崽，首推Ubuntu22.04和Debian12。好了，换完成系统我们开始安崽第 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/53427649/" title="使用Termux搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Termux/1.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用Termux搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/53427649/" title="使用Termux搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用Termux搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-09T05:27:08.854Z" title="发表于 2024-05-09 13:27:08">2024-05-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Termux/">Termux</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Termux/%E5%AE%89%E5%8D%93/">安卓</a></span></div><div class="content">
-
-首先，下载Termux点击下载问我为什么不用MT管理器？自从安卓系统更新到13代之后，各大手机厂商对安卓系统的防空进一步升级，在安卓13环境下，MT管理器在无Root权限的情况下，读取和调用data会有问题，MT管理器调取SSH也会异常，出现各种BUG，所以只能使用Termux了。我提供的是hanxinhao大佬提供的魔改版本，方便后面的维护。下载完成后，按一下音量+，之后切换源到清华源或是北京源
-确认一下，然后一路回车即可
-然后切换到小键盘1curl -LO gitee.com/TimeRainStarSky/TRSS-MTArch/raw/main/Install.sh &amp;&amp; bash Install.sh
-
-根据情况自己选择源（默认外国语大学)之后小键盘输入5，安装TRSS
-之后在打开的终端依次输入并回车1#安装ICQQ-Plugin
-
-配置签名1#QQ签名https://qsign.trpgbot.com
-
-然后正常输入你的QQ账号密码即可举例机器人账号：114514密码：1234561#QQ设置114514:123456:2
-（1：安卓，2：平板）【237 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/3.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">重装小兔</div><div class="author-info__description">看不懂教程的统统紫砂！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/OvertimeBunny"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://gitee.com/OvertimeBunny" target="_blank" title="Gitee"><i class="fas fa-code-branch" style="color: #C71D23;"></i></a><a class="social-icon" href="mailto:v17360963@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://t.me/+ivH_1de8P-U0NWY1" target="_blank" title="Telegram"><i class="fab fa-telegram" style="color: #0088cc;"></i></a><a class="social-icon" href="https://qm.qq.com/q/yJ0tpfSpz2" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #1DA1F2;"></i></a><a class="social-icon" href="https://steamcommunity.com/profiles/76561199211649020" target="_blank" title="Steam"><i class="fab fa-steam" style="color: #1b2838;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">已退QQ，没事别打扰我，有事去导航栏的聊天室（找我聊天）</div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/sweetalert.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="重装小兔的TRSS课堂" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/home/4.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/3.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/posts/83ff2157/"><i class="fa-fw fas fa-question-circle"></i><span> 常见问题汇总</span></a></div><div class="menus_item"><span class="site-page group"><span> Windows</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/beeac218/"><i class="fa-fw fas fa-terminal"></i><span> MYSY2</span></a></li><li><a class="site-page child" href="/posts/744e4646/"><i class="fa-fw fab fa-linux"></i><span> WSL</span></a></li><li><a class="site-page child" href="/posts/48ced98/"><i class="fa-fw fas fa-server"></i><span> Hyper-v</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/posts/7949d787/"><i class="fa-fw fab fa-linux"></i><span> Linux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/53427649/"><i class="fa-fw fas fa-mobile-alt"></i><span> Termux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/4d0f8001/"><i class="fa-fw fas fa-robot"></i><span> QQBot</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://over.x406.cn"><i class="fa-fw fas fa-external-link-alt"></i><span> 找我聊天</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/img/home/4.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">重装小兔的TRSS课堂</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/posts/83ff2157/"><i class="fa-fw fas fa-question-circle"></i><span> 常见问题汇总</span></a></div><div class="menus_item"><span class="site-page group"><span> Windows</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/beeac218/"><i class="fa-fw fas fa-terminal"></i><span> MYSY2</span></a></li><li><a class="site-page child" href="/posts/744e4646/"><i class="fa-fw fab fa-linux"></i><span> WSL</span></a></li><li><a class="site-page child" href="/posts/48ced98/"><i class="fa-fw fas fa-server"></i><span> Hyper-v</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/posts/7949d787/"><i class="fa-fw fab fa-linux"></i><span> Linux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/53427649/"><i class="fa-fw fas fa-mobile-alt"></i><span> Termux</span></a></div><div class="menus_item"><a class="site-page" href="/posts/4d0f8001/"><i class="fa-fw fas fa-robot"></i><span> QQBot</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://over.x406.cn"><i class="fa-fw fas fa-external-link-alt"></i><span> 找我聊天</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">重装小兔的TRSS课堂</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://gitee.com/OvertimeBunny" target="_blank" title="Gitee"><i class="fas fa-code-branch" style="color: #C71D23;"></i></a><a class="social-icon" href="mailto:v17360963@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://t.me/+ivH_1de8P-U0NWY1" target="_blank" title="Telegram"><i class="fab fa-telegram" style="color: #0088cc;"></i></a><a class="social-icon" href="https://qm.qq.com/q/yJ0tpfSpz2" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #1DA1F2;"></i></a><a class="social-icon" href="https://steamcommunity.com/profiles/76561199211649020" target="_blank" title="Steam"><i class="fab fa-steam" style="color: #1b2838;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/744e4646/" title="使用WSL和TRSS Script搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/WSL/1.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用WSL和TRSS Script搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/744e4646/" title="使用WSL和TRSS Script搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用WSL和TRSS Script搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-07T17:35:51.351Z" title="发表于 2024-05-08 01:35:51">2024-05-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/WSL/">WSL</a></span></div><div class="content">提示：在使用WSL前请卸载你的安卓模拟器！为什么？因为现在模拟器的实现逻辑，大部分都是和子系统WSL冲突的很多厂商为了市场份额，市场占有率，不顾用户的数据情况，会自动给你卸载并删除子系统和子系统内的数据，也不给你个操作提示，纯属流氓行为。首先，开启你的WSL这里提供两个方法方法一：打开终端管理器 输入以下内容1dism /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart  继续输入1dism /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart  然后重启电脑重启后，重新打开终端管理器，继续输入1wsl --set-default-version 2 1wsl --update  方法二： 打开设置 设置地区为美国 打开微软应用商店搜索并安装亚马逊平台（Amazon Appstore）1Amazon...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/48ced98/" title="使用Hype_v和TRSS Script搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Hype_v/9.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用Hype_v和TRSS Script搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/48ced98/" title="使用Hype_v和TRSS Script搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用Hype_v和TRSS Script搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-07T17:35:51.347Z" title="发表于 2024-05-08 01:35:51">2024-05-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/Hype-v/">Hype_v</a></span></div><div class="content">        第一步下载ISO下载签名文件下载Git确保两个文件在同一文件夹下！ 右键，选择Open Git Bash here执行：1gpg --keyserver-options auto-key-retrieve --verify archlinux-2024.10.01-x86_64.iso.sig  第二步 右键小窗户按钮，点击打开终端管理员输入以下指令启用Hype_v1Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All 或1DISM /Online /Enable-Feature /All...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/beeac218/" title="使用MYSY2和TRSS Script搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/MYSY2/1.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用MYSY2和TRSS Script搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/beeac218/" title="使用MYSY2和TRSS Script搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用MYSY2和TRSS Script搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-07T17:35:51.348Z" title="发表于 2024-05-08 01:35:51">2024-05-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Windows/">Windows</a></span></div><div class="content">首先，当然是下载MYSY2了     点击下载   一直点击下一步即可 安装完成后，打开，右键，点击Options 点击Windows 设置语音 zh-CN 点击 Save 右键 试试，汉化完成了 正式开始安崽输入以下命令，开始使用TRSS Script脚本1bash &lt;(curl -L gitee.com/TimeRainStarSky/TRSS_AllBot/raw/main/Install.sh) 等待安装完成后输入 tsab启动 1tsab 之后小键盘输入 8安装TRSS崽 崽安装后，别安装其他插件，不然等会标准输入可能卡住选择你需要的 适配器 如果只是搭建QQ机器人，那首推使用 ICQQ在终端直接输入命令调用标准输入来安装即可1#安装ICQQ-Plugin  提示：按住shift键不放，鼠标右键即可粘贴内容，拖拽后右键则可以选择复制内容然后重新打开崽之后输入你的QQ签名API1#QQ签名https://qsign.trpgbot.com  1#重启  之后设置你想要充当机器人的...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/7949d787/" title="使用Linux搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Linux/1.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用Linux搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7949d787/" title="使用Linux搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用Linux搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-09T21:59:48.579Z" title="发表于 2024-05-10 05:59:48">2024-05-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">首先，在你购买服务器的时候，检查一下服务器的可选地区中是否有和你所在地一致的服务器举例：我人在杭州，那我服务器的买的杭州地区的服务器为什么？因为现在90签名过检基本不会报45，但是大概率会237，这时候只能扫码登录（扫描以寄） 其次检查你的Linux系统CentOS系统的出门右转，给我去重装系统！问为什么？ CentOS 8系统2021年12月31日已停止维护服务，CentOS 7系统将于2024年06月30日停止维护服务。 CentOS官方不再提供CentOS 9及后续版本，不再支持新的软件和补丁更新。...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/53427649/" title="使用Termux搭建云崽"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Termux/1.jpg" onerror="this.onerror=null;this.src='/img/404.png'" alt="使用Termux搭建云崽"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/53427649/" title="使用Termux搭建云崽"><i class="fas fa-thumbtack sticky"></i>使用Termux搭建云崽</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-09T05:27:08.854Z" title="发表于 2024-05-09 13:27:08">2024-05-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Termux/">Termux</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Termux/%E5%AE%89%E5%8D%93/">安卓</a></span></div><div class="content">  首先，下载Termux点击下载问我为什么不用MT管理器？自从安卓系统更新到13代之后，各大手机厂商对安卓系统的防空进一步升级，在安卓13环境下，MT管理器在无Root权限的情况下，读取和调用data会有问题，MT管理器调取SSH也会异常，出现各种BUG，所以只能使用Termux了。我提供的是hanxinhao大佬提供的魔改版本，方便后面的维护。下载完成后，按一下音量+，之后切换源到清华源或是北京源 确认一下，然后一路回车即可 然后切换到小键盘1curl -LO gitee.com/TimeRainStarSky/TRSS-MTArch/raw/main/Install.sh &amp;&amp; bash...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/3.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">重装小兔</div><div class="author-info-description">看不懂教程的统统紫砂！</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/OvertimeBunny"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/OvertimeBunny" target="_blank" title="Gitee"><i class="fas fa-code-branch" style="color: #C71D23;"></i></a><a class="social-icon" href="mailto:v17360963@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://t.me/+ivH_1de8P-U0NWY1" target="_blank" title="Telegram"><i class="fab fa-telegram" style="color: #0088cc;"></i></a><a class="social-icon" href="https://qm.qq.com/q/yJ0tpfSpz2" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #1DA1F2;"></i></a><a class="social-icon" href="https://steamcommunity.com/profiles/76561199211649020" target="_blank" title="Steam"><i class="fab fa-steam" style="color: #1b2838;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">已退QQ，没事别打扰我，有事去导航栏的聊天室（找我聊天）</div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             <a class="card-more-btn" href="/categories/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a>
-            </div>
-            <ul class="card-category-list" id="aside-cat-list">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo/"><span class="card-category-list-name">Hexo</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/QQBot/"><span class="card-category-list-name">QQBot</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Termux/"><span class="card-category-list-name">Termux</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Termux/%E5%AE%89%E5%8D%93/"><span class="card-category-list-name">安卓</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">3</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/Hype-v/"><span class="card-category-list-name">Hype_v</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/WSL/"><span class="card-category-list-name">WSL</span><span class="card-category-list-count">1</span></a></li></ul></li>
-            </ul></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By 重装小兔</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/#/Integrated/recordQuery?key=%E6%B5%99ICP%E5%A4%872023037443%E5%8F%B7" target="_blank">
+          </ul></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By 重装小兔</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/#/Integrated/recordQuery?key=%E6%B5%99ICP%E5%A4%872023037443%E5%8F%B7" target="_blank">
   <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gw.alicdn.com/tfs/TB1GxwdSXXXXXa.aXXXXXXXXXXX-65-70.gif" alt="ICP备案图标" style="width: 20px; height: 20px;"> 浙ICP备2023037443号
 </a> | <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33078402101284" target="_blank">
   <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://beian.mps.gov.cn/web/assets/logo01.6189a29f.png" alt="公安联网备案图标" style="width: 20px; height: 20px;"> 浙公网安备33078402101284号
 </a>
-</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
-  init: (str) => {
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.5"></script><script src="/js/main.js?v=5.3.5"></script><script src="/js/tw_cn.js?v=5.3.5"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,
       startDelay: 300,
@@ -242,148 +168,119 @@ CentOS 8系统2021年12月31日已停止维护服务，CentOS 7系统将于2024�
       backSpeed: 50,
     }, null))
   },
-  run: (subtitleType) => {
+  run: subtitleType => {
     if (true) {
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
       }
     } else {
       subtitleType()
     }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = [].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
   }
 }
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
 </script><script>function subtitleType () {
   fetch('https://v1.hitokoto.cn')
     .then(response => response.json())
     .then(data => {
-      if (true) {
-        const from = '出自 ' + data.from
-        const sub = []
-        sub.unshift(data.hitokoto, from)
-        typedJSFn.init(sub)
-      } else {
-        document.getElementById('subtitle').textContent = data.hitokoto
-      }
+      const from = '出自 ' + data.from
+      typedJSFn.processSubtitle(data.hitokoto, [from])
+    })
+    .catch(err => {
+      console.error('Failed to get the Hitokoto API:', err)
+      typedJSFn.processSubtitle([])
     })
 }
 typedJSFn.run(subtitleType)
-</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script src="/js/sweetalert.js"></script><script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script><div class="aplayer no-destroy" data-id="8837491939" data-server="netease" data-type="playlist" data-order="list" data-fixed="true" data-preload="auto" data-autoplay="true" data-mutex="true" data-position="fixed" data-fixed-position="rb"></div><script>(() => {
-  const isChatBtn = false
-  const isChatHideShow = false
-  const isVoceChatEnabled = true
-
-  if (isVoceChatEnabled) {
-    const close = () => {
-      const widget = document.getElementById('VOCECHAT_WIDGET')
-      if (widget) widget.style.display = 'none'
-    }
-
-    const open = () => {
-      const widget = document.getElementById('VOCECHAT_WIDGET')
-      if (widget) widget.style.display = 'block'
-    }
-
-    if (isChatBtn) {
-      window.vocechatFn = () => {
-        const widget = document.getElementById('VOCECHAT_WIDGET')
-        if (widget) {
-          const isHidden = widget.style.display === 'none'
-          isHidden ? open() : close()
+</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script src="/js/sweetalert.js"></script><script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script><div class="aplayer no-destroy" data-id="8837491939" data-server="netease" data-type="playlist" data-order="list" data-fixed="true" data-preload="auto" data-autoplay="true" data-mutex="true" data-position="fixed" data-fixed-position="rb"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
         }
       }
-    } else if (isChatHideShow) {
-      window.vocechatBtn = {
-        hide: close,
-        show: open
-      }
-    }
-
-    const script = document.createElement('script')
-    script.setAttribute('data-host-id', '1')
-    script.setAttribute('data-auto-reg', 'true')
-    script.setAttribute('data-login-token', '')
-    script.setAttribute('data-title', 'OverTimeBunny')
-    script.setAttribute('data-logo', 'https://www.xn--h5q74xcj0bhth.icu/img/3.png')
-    script.setAttribute('data-theme-color', '#1fe1f9')
-    script.setAttribute('data-close-width', '48')
-    script.setAttribute('data-close-height', '48')
-    script.setAttribute('data-open-width', '380')
-    script.setAttribute('data-open-height', '680')
-    script.setAttribute('data-welcome', '这里是小兔聊天室的轻量化挂件，有啥简单的问题在这直接问即可！')
-    script.src = 'https://over.x406.cn/widget.js'
-    script.async = true
-
-    document.head.appendChild(script)
-  }
-})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
-
-var pjax = new Pjax({
-  elements: 'a:not([target="_blank"])',
-  selectors: pjaxSelectors,
-  cacheBust: false,
-  analytics: false,
-  scrollRestoration: false
-})
-
-document.addEventListener('pjax:send', function () {
-
-  // removeEventListener
-  btf.removeGlobalFnEvent('pjax')
-  btf.removeGlobalFnEvent('themeChange')
-
-  document.getElementById('rightside').classList.remove('rightside-show')
-  
-  if (window.aplayers) {
-    for (let i = 0; i < window.aplayers.length; i++) {
-      if (!window.aplayers[i].options.fixed) {
-        window.aplayers[i].destroy()
-      }
     }
   }
 
-  typeof typed === 'object' && typed.destroy()
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
 
-  //reset readmode
-  const $bodyClassList = document.body.classList
-  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 
-  typeof disqusjs === 'object' && disqusjs.destroy()
-})
-
-document.addEventListener('pjax:complete', function () {
-  window.refreshFn()
-
-  document.querySelectorAll('script[data-pjax]').forEach(item => {
-    const newScript = document.createElement('script')
-    const content = item.text || item.textContent || item.innerHTML || ""
-    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-    newScript.appendChild(document.createTextNode(content))
-    item.parentNode.replaceChild(newScript, item)
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
   })
 
-  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
-
-  typeof panguInit === 'function' && panguInit()
-
-  // google analytics
-  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
-
-  // baidu analytics
-  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
-
-  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-
-  // prismjs
-  typeof Prism === 'object' && Prism.highlightAll()
-})
-
-document.addEventListener('pjax:error', e => {
-  if (e.request.status === 404) {
-    pjax.loadUrl('/404')
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
   }
-})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><script data-pjax>
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404') : window.location.href = '/404')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
   function butterfly_footer_beautify_injector_config(){
     var parent_div_git = document.getElementById('footer-wrap');
     var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于Vercel" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://dashboard.4everland.org/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于4EVERLAND" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-4EVERLAND-22DDDD?style=flat&amp;logo=IPFS" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
@@ -407,7 +304,7 @@ document.addEventListener('pjax:error', e => {
   else if (epage === cpage){
     butterfly_footer_beautify_injector_config();
   }
-  </script> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+  </script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
     var parent = document.getElementById('recent-posts');
     var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/Windows/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🪟 Windows教程 (3)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/Linux/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🐧 Linux教程 (2)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/Termux/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">📱 Termux教程 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/QQBot/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🤖 QQBot制作 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/常见问题汇总/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">❓ 常见问题汇总 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/网络工具/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🌐 网络工具 (2)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/好物推荐/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">💎 好物推荐 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/qsign/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🌐 qsign (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="https://x406.cn/categories/Hexo/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🖌️ Hexo美化教程 (2)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><a class="magnet_link_more"  href="https://x406.cn/categories" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
     console.log('已挂载magnet')
