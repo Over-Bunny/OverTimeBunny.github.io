@@ -207,6 +207,13 @@
   </url>
   
   <url>
+    <loc>https://x406.cn/categories/QQBot/</loc>
+    <lastmod>2025-05-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://x406.cn/categories/Windows/</loc>
     <lastmod>2025-05-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -215,20 +222,6 @@
   
   <url>
     <loc>https://x406.cn/categories/Linux/</loc>
-    <lastmod>2025-05-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/categories/QQBot/</loc>
-    <lastmod>2025-05-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x406.cn/categories/Windows/Hype-v/</loc>
     <lastmod>2025-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -250,6 +243,13 @@
   
   <url>
     <loc>https://x406.cn/categories/Windows/WSL/</loc>
+    <lastmod>2025-05-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x406.cn/categories/Windows/Hype-v/</loc>
     <lastmod>2025-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
