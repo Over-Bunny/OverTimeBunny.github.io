@@ -1,0 +1,65 @@
+/* =========================================== */
+/* ==  全新的UI卡片式友链样式  == */
+/* =========================================== */
+
+.friend-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.friend-card {
+  /* 使用你全站美化中的变量，保持风格统一 */
+  background: var(--trans-light);
+  backdrop-filter: var(--backdrop-filter);
+  border: var(--border-style);
+  border-radius: 15px; /* 圆角 */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none; /* 去掉链接下划线 */
+  color: var(--anzhiyu-fontcolor); /* 使用主题字体颜色 */
+  transition: all 0.3s ease; /* 平滑的过渡效果 */
+  height: 100%; /* 让卡片在网格中等高 */
+  box-sizing: border-box;
+}
+
+.friend-card:hover {
+  transform: translateY(-5px); /* 悬停时轻微上浮 */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 增强阴影 */
+  background: var(--trans-dark); /* 悬停时背景加深 */
+  color: #fff; /* 悬停时文字变白 */
+}
+
+.friend-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* 圆形头像 */
+  margin-bottom: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.5); /* 给头像加个边框 */
+}
+
+.friend-info {
+  flex-grow: 1; /* 让信息部分占据剩余空间 */
+}
+
+.friend-name {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+/* 夜间模式适配 */
+[data-theme="dark"] .friend-card {
+  background: var(--trans-dark);
+  color: #f0f0f0;
+}
+
+[data-theme="dark"] .friend-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}

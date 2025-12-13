@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>QQBot的搭建和使用 | 重装小兔的TRSS课堂</title><meta name="author" content="重装小兔"><meta name="copyright" content="重装小兔"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="QQBot的搭建和使用"><meta name="application-name" content="QQBot的搭建和使用"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="QQBot的搭建和使用"><meta property="og:url" content="https://x406.cn/posts/4d0f8001/index.html"><meta property="og:site_name" content="重装小兔的TRSS课堂"><meta property="og:description" content="首先，确保你有QQ开放平台的群机器人权限权限来源：1：参加腾讯开发者编程大赛（已结束，下一届不知道什么时候） 2：拥有企业执照和对公账户，然后注册并入驻腾讯开放平台 3：高校高级人才或企业，被腾讯特邀开发（目前不招个人） 当前QQBot已对个体全面开放公测！当你拥有官方机器人后，你还需要以下设备："><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://x406.cn/img/QQBot/1.png"><meta property="article:author" content="重装小兔"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://x406.cn/img/QQBot/1.png"><meta name="description" content="首先，确保你有QQ开放平台的群机器人权限权限来源：1：参加腾讯开发者编程大赛（已结束，下一届不知道什么时候） 2：拥有企业执照和对公账户，然后注册并入驻腾讯开放平台 3：高校高级人才或企业，被腾讯特邀开发（目前不招个人） 当前QQBot已对个体全面开放公测！当你拥有官方机器人后，你还需要以下设备："><link rel="shortcut icon" href="/img/3.png"><link rel="canonical" href="https://x406.cn/posts/4d0f8001/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 重装小兔","link":"链接: ","source":"来源: 重装小兔的TRSS课堂","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '重装小兔的TRSS课堂',
+  title: 'QQBot的搭建和使用',
+  postAI: '',
+  pageFillDescription: '首先确保你有的群机器人权限, 权限来源：, 当前QQBot已对个体全面开放公测！, 当你拥有官方机器人后你还需要以下设备：, 第一步：将你的QQBOT和你的公网IP绑定（狗腾讯原来是没有这一步的说是为了安全考虑加了这个）。, 如若没有公网IP可以使用霆生ampamp冷曦俩位大佬三次开发的, 通过反代腾讯的API：, , 实现Bot的消息处理然后在白名单配置反代的服务器地址, 第二步：配置你的崽, 启动崽后在终端输入并回车：, 没公网IP的手动安装插件使用霆生ampamp冷曦俩位大佬三次开发的, 之后去复制你的QQBot信息, 之后按格式在终端输入一下内容：, QQBot设置[账号][ID][Token][AppSecret]1[频道公域或私域], 举例：, 目前最新的QQBOT默认是公域私域的自己改去, 傻逼腾讯又瞎几把的改东西同一个公司昨天申请的时候给的是私域今天注册给的公域为了推广频道机器人无所不用其极也不看看频道现在改版改的多烂开发文档写的多烂, 要改私域的自己进沙盒改（也建议改私域), 修改完成后按照例子里吧后面改为1就行, 之后艾特你的机器人发：, 之后回复机器人后台的验证码即可（注意艾特后面的空格）, 附加功能：, TRSS崽默认是开启x2F转的, 官方机器人也默认使用的x2F, 但是开启x2F转后一些原本就使用x2F指令的插件可能会异常无法使用, 所以建议还是关了好后面自己改插件正则表达式（大部分都在插件目录下的apps文件夹中星铁这些内置的在libx2Fplugins）, 目前x2F转的功能在configx2Fconfigx2Fbot.yaml里面, 其他功能：, 目前官BOT非2000月活不提供MD权限, 比赛内测期间的老BOT也在陆续回收低于400日活全无MD权限了（内邀原生的除外）, 目前普BOT只能根据按钮ID发静态按钮, 按钮配置：, 完整示例：, QQ机器人友链首先确保你有开放平台的群机器人权限权限来源参加腾讯开发者编程大赛已结束下一届不知道什么时候拥有企业执照和对公账户然后注册并入驻腾讯开放平台高校高级人才或企业被腾讯特邀开发目前不招个人当前已对个体全面开放公测当你拥有官方机器人后你还需要以下设备公网设备版本的崽账号信息正常的大脑第一步将你的和你的公网绑定狗腾讯原来是没有这一步的说是为了安全考虑加了这个如若没有公网可以使用霆生冷曦俩位大佬三次开发的插件通过反代腾讯的实现的消息处理然后在白名单配置反代的服务器地址第二步配置你的崽启动崽后在终端输入并回车安装没公网的手动安装插件使用霆生冷曦俩位大佬三次开发的插件之后去开放平台复制你的信息之后按格式在终端输入一下内容设置账号频道公域或私域举例机器人号机器人频道公域设置目前最新的默认是公域私域的自己改去傻逼腾讯又瞎几把的改东西同一个公司昨天申请的时候给的是私域今天注册给的公域为了推广频道机器人无所不用其极也不看看频道现在改版改的多烂开发文档写的多烂要改私域的自己进沙盒改也建议改私域修改完成后按照例子里吧后面改为就行设置之后艾特你的机器人发设置主人之后回复机器人后台的验证码即可注意艾特后面的空格附加功能崽默认是开启转的官方机器人也默认使用的但是开启转后一些原本就使用指令的插件可能会异常无法使用所以建议还是关了好后面自己改插件正则表达式大部分都在插件目录下的文件夹中星铁这些内置的在目前转的功能在里面其他功能目前官非月活不提供权限比赛内测期间的老也在陆续回收低于日活全无权限了内邀原生的除外目前普只能根据按钮发静态按钮按钮配置按钮模板返回渲染的页面和按钮模板完整示例自定义按钮插件欢迎使用普罗米修斯以下是普罗米修斯的功能详情帮助创建纯文本消息欢迎使用普罗米修斯以下是为了方便而设置的功能分区定义按钮数据按钮申请使用已点击按钮样式表示正向按钮绿色替换为实际链接发送纯文本消息发送按钮消息发送按钮消息出错按钮消息发送失败请稍后重试机器人友链欢迎广大开发者交换友链创建人功能介绍普罗米修斯重装小兔智能游戏管家集成了米游社原神星铁崩坏三还有碧蓝明日库洛等众多游戏的多功能机器人布洛妮娅重装小兔智能游戏助手内置了米哈游全家桶库洛游戏蔚蓝档案明日方舟等众多游戏功能伊蕾娜冷曦定位核心为触发型多功能与其他拓展玩法功能沂沨良言一句三冬暖恶语伤人六月寒提供一言情话毒鸡汤答案之书等大量语库再也不为没有文案发朋友圈而发愁',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-13 14:23:50',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.1"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/3.png"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">重装小兔的TRSS课堂</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/1.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="/img/1.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/2.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="/img/2.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/12/"><span class="card-archive-list-date">十二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">14</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%B4%BD/" itemprop="url">云崽</a><i class="anzhiyufont anzhiyu-icon-angle-right post-meta-separator"></i><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%B4%BD/QQBot/" itemprop="url">QQBot</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">QQBot的搭建和使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-12-13T03:24:52.402Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-12-13T06:23:50.756Z" title="更新于 2025-12-13 14:23:50">2025-12-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为杭州"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>杭州</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/QQBot/1.png"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://x406.cn/posts/4d0f8001/"><header><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%B4%BD/" itemprop="url">云崽</a><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%B4%BD/QQBot/" itemprop="url">QQBot</a><h1 id="CrawlerTitle" itemprop="name headline">QQBot的搭建和使用</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">重装小兔</span><time itemprop="dateCreated datePublished" datetime="2025-12-13T03:24:52.402Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time><time itemprop="dateCreated datePublished" datetime="2025-12-13T06:23:50.756Z" title="更新于 2025-12-13 14:23:50">2025-12-13</time></header><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/1.png"></p>
+<h2 id="首先，确保你有QQ开放平台的群机器人权限"><a href="#首先，确保你有QQ开放平台的群机器人权限" class="headerlink" title="首先，确保你有QQ开放平台的群机器人权限"></a><strong>首先，确保你有<a target="_blank" rel="noopener" href="http://q.qq.com/">QQ开放平台</a>的<span style="color: red;">群机器人权限</span></strong></h2><h2 id="权限来源："><a href="#权限来源：" class="headerlink" title="权限来源："></a><strong>权限来源：</strong></h2><p><del>1：参加腾讯开发者编程大赛（<span style="color: red;">已结束，下一届不知道什么时候</span>）</del></p>
+<p><del>2：拥有企业执照和对公账户，然后注册并入驻腾讯开放平台</del></p>
+<p><del>3：高校高级人才或企业，被腾讯特邀开发（<span style="color: red;">目前不招个人</span>）</del></p>
+<h1 id="当前QQBot已对个体全面开放公测！"><a href="#当前QQBot已对个体全面开放公测！" class="headerlink" title="当前QQBot已对个体全面开放公测！"></a><strong><span style="color: red;">当前QQBot已对个体全面开放公测！</span></strong></h1><h2 id="当你拥有官方机器人后，你还需要以下设备："><a href="#当你拥有官方机器人后，你还需要以下设备：" class="headerlink" title="当你拥有官方机器人后，你还需要以下设备："></a><strong>当你拥有官方机器人后，你还需要以下设备：</strong></h2><p><strong>1：~~公网设备~~~</strong></p>
+<p><strong>2：TRSS版本的TRSS崽</strong></p>
+<p><strong>3：QQBot账号信息</strong></p>
+<p><strong>4：<span style="color: red;">正常的大脑</span></strong></p>
+<h2 id="第一步：将你的QQBOT和你的公网IP绑定（狗腾讯，原来是没有这一步的，说是为了安全考虑，加了这个）。"><a href="#第一步：将你的QQBOT和你的公网IP绑定（狗腾讯，原来是没有这一步的，说是为了安全考虑，加了这个）。" class="headerlink" title="第一步：将你的QQBOT和你的公网IP绑定（狗腾讯，原来是没有这一步的，说是为了安全考虑，加了这个）。"></a>第一步：将你的QQBOT和你的公网IP绑定（狗腾讯，<span style="color: red;">原来是没有这一步的</span>，说是<span style="color: orange;">为了安全考虑</span>，加了这个）。</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/2.png"></p>
+<h3 id="如若没有公网IP，可以使用霆生-冷曦俩位大佬三次开发的QQbot插件"><a href="#如若没有公网IP，可以使用霆生-冷曦俩位大佬三次开发的QQbot插件" class="headerlink" title="如若没有公网IP，可以使用霆生&amp;&amp;冷曦俩位大佬三次开发的QQbot插件"></a>如若没有公网IP，可以使用<span style="color: red;">霆生&amp;&amp;冷曦</span>俩位大佬三次开发的<a target="_blank" rel="noopener" href="https://gitee.com/ts-yf/QQBot-Plugin">QQbot插件</a></h3><h3 id="通过反代腾讯的API："><a href="#通过反代腾讯的API：" class="headerlink" title="通过反代腾讯的API："></a>通过反代腾讯的API：</h3><h3 id="https-api-sgroup-qq-com"><a href="#https-api-sgroup-qq-com" class="headerlink" title="https://api.sgroup.qq.com"></a><a target="_blank" rel="noopener" href="https://api.sgroup.qq.com/">https://api.sgroup.qq.com</a></h3><h3 id="实现Bot的消息处理，然后在白名单配置反代的服务器地址"><a href="#实现Bot的消息处理，然后在白名单配置反代的服务器地址" class="headerlink" title="实现Bot的消息处理，然后在白名单配置反代的服务器地址"></a>实现Bot的消息处理，然后在白名单配置反代的服务器地址</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/13.png"></p>
+<h2 id="第二步：配置你的崽"><a href="#第二步：配置你的崽" class="headerlink" title="第二步：配置你的崽"></a><strong>第二步：配置你的崽</strong></h2><h2 id="启动崽后，在终端输入并回车："><a href="#启动崽后，在终端输入并回车：" class="headerlink" title="启动崽后，在终端输入并回车："></a><strong>启动崽后，在终端<span style="color: red;">输入并回车</span>：</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#安装QQBot-Plugin</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/6.png"></p>
+<h3 id="没公网IP的手动安装插件，使用霆生-冷曦俩位大佬三次开发的QQbot插件"><a href="#没公网IP的手动安装插件，使用霆生-冷曦俩位大佬三次开发的QQbot插件" class="headerlink" title="没公网IP的手动安装插件，使用霆生&amp;&amp;冷曦俩位大佬三次开发的QQbot插件"></a>没公网IP的手动安装插件，使用<span style="color: red;">霆生&amp;&amp;冷曦</span>俩位大佬三次开发的<a target="_blank" rel="noopener" href="https://gitee.com/ts-yf/QQBot-Plugin">QQbot插件</a></h3><h2 id="之后，去QQ开放平台复制你的QQBot信息"><a href="#之后，去QQ开放平台复制你的QQBot信息" class="headerlink" title="之后，去QQ开放平台复制你的QQBot信息"></a><strong>之后，去<a target="_blank" rel="noopener" href="http://q.qq.com/">QQ开放平台</a>复制你的QQBot信息</strong></h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/7.png"></p>
+<h2 id="之后按格式在终端输入一下内容："><a href="#之后按格式在终端输入一下内容：" class="headerlink" title="之后按格式在终端输入一下内容："></a><strong>之后按格式在终端输入一下内容：</strong></h2><h3 id="QQBot设置-账号-ID-Token-AppSecret-1-频道公域或私域"><a href="#QQBot设置-账号-ID-Token-AppSecret-1-频道公域或私域" class="headerlink" title="#QQBot设置[账号]:[ID]:[Token]:[AppSecret]:1:[频道公域或私域]"></a><strong>#QQBot设置[账号]:[ID]:[Token]:[AppSecret]:1:[频道公域或私域]</strong></h3><h4 id="举例："><a href="#举例：" class="headerlink" title="举例："></a><strong>举例：</strong></h4><p><strong>机器人QQ号:114514</strong></p>
+<p><strong>机器人ID:9523</strong></p>
+<p><strong>Token :321</strong></p>
+<p><strong>AppSecret 1234567</strong></p>
+<p><strong>频道公域</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#QQBot设置114514:9523:321:1234567:1:0</span><br></pre></td></tr></table></figure>
+
+<h2 id="目前最新的QQBOT默认是公域，私域的自己改去"><a href="#目前最新的QQBOT默认是公域，私域的自己改去" class="headerlink" title="目前最新的QQBOT默认是公域，私域的自己改去"></a><strong>目前最新的QQBOT默认是公域，私域的自己改去</strong></h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/8.png"></p>
+<h3 id="傻逼腾讯又瞎几把的改东西，同一个公司，昨天申请的时候给的是私域，今天注册给的公域-为了推广频道机器人无所不用其极，也不看看频道现在改版改的多烂，开发文档写的多烂"><a href="#傻逼腾讯又瞎几把的改东西，同一个公司，昨天申请的时候给的是私域，今天注册给的公域-为了推广频道机器人无所不用其极，也不看看频道现在改版改的多烂，开发文档写的多烂" class="headerlink" title="傻逼腾讯又瞎几把的改东西，同一个公司，昨天申请的时候给的是私域，今天注册给的公域,为了推广频道机器人无所不用其极，也不看看频道现在改版改的多烂，开发文档写的多烂"></a><strong>傻逼腾讯又瞎几把的改东西，同一个公司，昨天申请的时候给的是私域，今天注册给的公域,为了推广频道机器人无所不用其极，也不看看频道现在改版改的多烂，开发文档写的多烂</strong></h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/9.png"></p>
+<h2 id="要改私域的自己进沙盒改（也建议改私域"><a href="#要改私域的自己进沙盒改（也建议改私域" class="headerlink" title="要改私域的自己进沙盒改（也建议改私域)"></a><strong>要改私域的自己进沙盒改（也建议改私域)</strong></h2><h2 id="修改完成后按照例子里吧后面改为1就行"><a href="#修改完成后按照例子里吧后面改为1就行" class="headerlink" title="修改完成后按照例子里吧后面改为1就行"></a><strong>修改完成后按照例子里吧后面改为1就行</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#QQBot设置114514:1145149191:321:1234567:1:1</span><br></pre></td></tr></table></figure>
+
+<h2 id="之后艾特你的机器人发："><a href="#之后艾特你的机器人发：" class="headerlink" title="之后艾特你的机器人发："></a><strong>之后艾特你的机器人发：</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#设置主人</span><br></pre></td></tr></table></figure>
+
+<h2 id="之后回复机器人后台的验证码即可（注意艾特后面的空格）"><a href="#之后回复机器人后台的验证码即可（注意艾特后面的空格）" class="headerlink" title="之后回复机器人后台的验证码即可（注意艾特后面的空格）"></a><strong>之后回复机器人后台的验证码即可（<span style="color: red;">注意艾特后面的空格</span>）</strong></h2><h1 id="附加功能："><a href="#附加功能：" class="headerlink" title="附加功能："></a><span style="color: green;">附加功能：</span></h1><h2 id="TRSS崽默认是开启-转-的"><a href="#TRSS崽默认是开启-转-的" class="headerlink" title="TRSS崽默认是开启&#x2F;转#的"></a><strong>TRSS崽默认是开启&#x2F;转#的</strong></h2><h2 id="官方机器人也默认使用的"><a href="#官方机器人也默认使用的" class="headerlink" title="官方机器人也默认使用的&#x2F;"></a><strong>官方机器人也默认使用的&#x2F;</strong></h2><h2 id="但是开启-转-后，一些原本就使用-指令的插件可能会异常，无法使用"><a href="#但是开启-转-后，一些原本就使用-指令的插件可能会异常，无法使用" class="headerlink" title="但是开启&#x2F;转#后，一些原本就使用&#x2F;指令的插件可能会异常，无法使用"></a><strong>但是开启&#x2F;转#后，<span style="color: red;">一些原本就使用&#x2F;指令的插件可能会异常，无法使用</span></strong></h2><h2 id="所以建议还是关了好，后面自己改插件正则表达式（大部分都在插件目录下的apps文件夹中，星铁这些内置的在lib-plugins）"><a href="#所以建议还是关了好，后面自己改插件正则表达式（大部分都在插件目录下的apps文件夹中，星铁这些内置的在lib-plugins）" class="headerlink" title="所以建议还是关了好，后面自己改插件正则表达式（大部分都在插件目录下的apps文件夹中，星铁这些内置的在lib&#x2F;plugins）"></a><strong>所以<span style="color: red;">建议还是关了好</span>，后面<span style="color: orange;">自己改插件正则表达式</span>（大部分都在插件目录下的apps文件夹中，<span style="color: red;">星铁这些内置的在lib&#x2F;plugins</span>）</strong></h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/QQBot/10.png"></p>
+<h2 id="目前-转-的功能在config-config-bot-yaml里面"><a href="#目前-转-的功能在config-config-bot-yaml里面" class="headerlink" title="目前&#x2F;转#的功能在config&#x2F;config&#x2F;bot.yaml里面"></a><strong>目前&#x2F;转#的功能在<span style="color: red;">config&#x2F;config&#x2F;bot.yaml</span>里面</strong></h2><h1 id="其他功能："><a href="#其他功能：" class="headerlink" title="其他功能："></a><span style="color: green;">其他功能：</span></h1><h2 id="目前官BOT非2000月活不提供MD权限"><a href="#目前官BOT非2000月活不提供MD权限" class="headerlink" title="目前官BOT非2000月活不提供MD权限"></a>目前官BOT<span style="color: red;">非2000月活不提供MD权限</span></h2><h3 id="比赛内测期间的老BOT也在陆续回收，低于400日活全无MD权限了（内邀原生的除外）"><a href="#比赛内测期间的老BOT也在陆续回收，低于400日活全无MD权限了（内邀原生的除外）" class="headerlink" title="比赛内测期间的老BOT也在陆续回收，低于400日活全无MD权限了（内邀原生的除外）"></a>比赛内测期间的老BOT也在陆续回收，低于400日活全无MD权限了（内邀原生的除外）</h3><h2 id="目前普BOT只能根据按钮ID发静态按钮"><a href="#目前普BOT只能根据按钮ID发静态按钮" class="headerlink" title="目前普BOT只能根据按钮ID发静态按钮"></a>目前普BOT只能根据按钮ID发静态按钮</h2><h1 id="按钮配置："><a href="#按钮配置：" class="headerlink" title="按钮配置："></a>按钮配置：</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const buttonMessage = segment.raw(&#123;</span><br><span class="line">      type: &#x27;keyboard&#x27;,</span><br><span class="line">      id: &#x27;102314156_1735552310&#x27;, // 按钮模板ID</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // 返回渲染的页面和按钮模板</span><br><span class="line">    let ret = await e.reply([</span><br><span class="line">      await Common.render(</span><br><span class="line">        &#x27;help/index&#x27;,</span><br><span class="line">        &#123;</span><br><span class="line">          helpCfg: helpConfig,</span><br><span class="line">          helpGroup,</span><br><span class="line">          ...themeData,</span><br><span class="line">          element: &#x27;default&#x27;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; e, scale: 1.2 &#125;</span><br><span class="line">      )</span><br><span class="line">    ]);</span><br><span class="line">    await e.reply([buttonMessage]);</span><br><span class="line">    return ret;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="完整示例："><a href="#完整示例：" class="headerlink" title="完整示例："></a>完整示例：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">import &#123; segment &#125; from &quot;oicq&quot;;</span><br><span class="line"></span><br><span class="line">export class CustomButtonPlugin extends plugin &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        super(&#123;</span><br><span class="line">            name: &#x27;自定义按钮插件&#x27;,</span><br><span class="line">            dsc: &#x27;欢迎使用普罗米修斯，以下是普罗米修斯的功能详情&#x27;,</span><br><span class="line">            event: &#x27;message&#x27;,</span><br><span class="line">            priority: -100,</span><br><span class="line">            rule: [</span><br><span class="line">                &#123;</span><br><span class="line">                    reg: &quot;^#帮助$&quot;,</span><br><span class="line">                    fnc: &#x27;sendButtonMessage&#x27;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    async sendButtonMessage(e) &#123;</span><br><span class="line">        // 创建纯文本消息</span><br><span class="line">        const textMessage = &quot;欢迎使用普罗米修斯，以下是为了方便而设置的功能分区&quot;;</span><br><span class="line"></span><br><span class="line">        // 定义按钮数据</span><br><span class="line">        const buttonData = &#123;</span><br><span class="line">            type: &quot;keyboard&quot;,</span><br><span class="line">            id: &quot;102314156_1735557246&quot;, // 按钮ID</span><br><span class="line">            buttons: [</span><br><span class="line">                &#123;</span><br><span class="line">                    label: &quot;申请使用&quot;,</span><br><span class="line">                    visited_label: &quot;已点击&quot;,</span><br><span class="line">                    style: 1, // 按钮样式：1 表示正向按钮（绿色）</span><br><span class="line">                    action: &#123;</span><br><span class="line">                        type: &quot;url&quot;,</span><br><span class="line">                        url: &quot;https://example.com&quot; // 替换为实际链接</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            // 发送纯文本消息</span><br><span class="line">            await e.reply(textMessage);</span><br><span class="line"></span><br><span class="line">            // 发送按钮消息</span><br><span class="line">            await e.reply(segment.raw(buttonData));</span><br><span class="line">        &#125; catch (error) &#123;</span><br><span class="line">            console.error(&#x27;发送按钮消息出错：&#x27;, error);</span><br><span class="line">            await e.reply(&quot;按钮消息发送失败，请稍后重试。&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="QQ机器人友链"><a href="#QQ机器人友链" class="headerlink" title="QQ机器人友链"></a>QQ机器人友链</h3><blockquote>
+<p>欢迎广大开发者交换友链</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">Robot</th>
+<th>创建人</th>
+<th>功能&amp;介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://bot.q.qq.com/s/917433cnh?id=3889225662">普罗米修斯</a></td>
+<td>重装小兔</td>
+<td>智能游戏管家，集成了米游社，原神，星铁，崩坏三，还有碧蓝，明日，库洛等众多游戏的多功能机器人</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://bot.q.qq.com/s/917433cnh?id=3889618160">布洛妮娅</a></td>
+<td>重装小兔</td>
+<td>智能游戏助手，内置了米哈游全家桶、库洛游戏、蔚蓝档案、明日方舟等众多游戏功能</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://qun.qq.com/qunpro/robot/qunshare?biz_type=1&robot_uin=3889045760">伊蕾娜</a></td>
+<td><a target="_blank" rel="noopener" href="https://qm.qq.com/q/44OFS6WBKM">冷曦</a></td>
+<td>定位：核心为API触发型多功能BOT与其他拓展玩法功能。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://qun.qq.com/qunpro/robot/qunshare?biz_type=1&robot_uin=3889042293">XxxXBot</a></td>
+<td><a target="_blank" rel="noopener" href="https://qm.qq.com/q/l7nDOOUQL">TS沂沨</a></td>
+<td>良言一句三冬暖，恶语伤人六月寒。提供一言，情话，毒鸡汤，答案之书等大量语库，再也不为没有文案发朋友圈而发愁。</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/3.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/3.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">重装小兔</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://x406.cn/posts/4d0f8001/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://x406.cn/posts/4d0f8001/')">QQBot的搭建和使用</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="/img/1.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/1.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/2.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/2.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://x406.cn/posts/4d0f8001/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=QQBot的搭建和使用&amp;url=https://x406.cn/posts/4d0f8001/&amp;pic=/img/QQBot/1.png" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://x406.cn" target="_blank">重装小兔的TRSS课堂</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/Linux/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/beeac218/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/MYSY2/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用MYSY2和TRSS Script搭建云崽</div></div></a></div><div class="next-post pull-right"><a href="/posts/d7178a05/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/Linux/19.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Yunzai配置外置渲染</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/3.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">看不懂教程的统统紫砂！</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">重装小兔</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/OverTimeBunny" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/345369849" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a><a class="social-icon faa-parent animated-hover" href="https://qm.qq.com/q/tJU3OdktXi" target="_blank" title="QQ"><i class="anzhiyufont anzhiyu-icon-qq"></i></a><a class="social-icon faa-parent animated-hover" href="https://t.me/+ivH_1de8P-U0NWY1" target="_blank" title="Telegram"><i class="anzhiyufont anzhiyu-icon-paper-plane"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E5%85%88%EF%BC%8C%E7%A1%AE%E4%BF%9D%E4%BD%A0%E6%9C%89QQ%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%BE%A4%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%9D%83%E9%99%90"><span class="toc-number">1.</span> <span class="toc-text">首先，确保你有QQ开放平台的群机器人权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%9D%A5%E6%BA%90%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">权限来源：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BD%93%E5%89%8DQQBot%E5%B7%B2%E5%AF%B9%E4%B8%AA%E4%BD%93%E5%85%A8%E9%9D%A2%E5%BC%80%E6%94%BE%E5%85%AC%E6%B5%8B%EF%BC%81"><span class="toc-number">3.</span> <span class="toc-text">当前QQBot已对个体全面开放公测！</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E4%BD%A0%E6%8B%A5%E6%9C%89%E5%AE%98%E6%96%B9%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%90%8E%EF%BC%8C%E4%BD%A0%E8%BF%98%E9%9C%80%E8%A6%81%E4%BB%A5%E4%B8%8B%E8%AE%BE%E5%A4%87%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">当你拥有官方机器人后，你还需要以下设备：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%B0%86%E4%BD%A0%E7%9A%84QQBOT%E5%92%8C%E4%BD%A0%E7%9A%84%E5%85%AC%E7%BD%91IP%E7%BB%91%E5%AE%9A%EF%BC%88%E7%8B%97%E8%85%BE%E8%AE%AF%EF%BC%8C%E5%8E%9F%E6%9D%A5%E6%98%AF%E6%B2%A1%E6%9C%89%E8%BF%99%E4%B8%80%E6%AD%A5%E7%9A%84%EF%BC%8C%E8%AF%B4%E6%98%AF%E4%B8%BA%E4%BA%86%E5%AE%89%E5%85%A8%E8%80%83%E8%99%91%EF%BC%8C%E5%8A%A0%E4%BA%86%E8%BF%99%E4%B8%AA%EF%BC%89%E3%80%82"><span class="toc-number">3.2.</span> <span class="toc-text">第一步：将你的QQBOT和你的公网IP绑定（狗腾讯，原来是没有这一步的，说是为了安全考虑，加了这个）。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E8%8B%A5%E6%B2%A1%E6%9C%89%E5%85%AC%E7%BD%91IP%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E9%9C%86%E7%94%9F-%E5%86%B7%E6%9B%A6%E4%BF%A9%E4%BD%8D%E5%A4%A7%E4%BD%AC%E4%B8%89%E6%AC%A1%E5%BC%80%E5%8F%91%E7%9A%84QQbot%E6%8F%92%E4%BB%B6"><span class="toc-number">3.2.1.</span> <span class="toc-text">如若没有公网IP，可以使用霆生&amp;&amp;冷曦俩位大佬三次开发的QQbot插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E4%BB%A3%E8%85%BE%E8%AE%AF%E7%9A%84API%EF%BC%9A"><span class="toc-number">3.2.2.</span> <span class="toc-text">通过反代腾讯的API：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#https-api-sgroup-qq-com"><span class="toc-number">3.2.3.</span> <span class="toc-text">https:&#x2F;&#x2F;api.sgroup.qq.com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0Bot%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E7%99%BD%E5%90%8D%E5%8D%95%E9%85%8D%E7%BD%AE%E5%8F%8D%E4%BB%A3%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%B0%E5%9D%80"><span class="toc-number">3.2.4.</span> <span class="toc-text">实现Bot的消息处理，然后在白名单配置反代的服务器地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AE%E4%BD%A0%E7%9A%84%E5%B4%BD"><span class="toc-number">3.3.</span> <span class="toc-text">第二步：配置你的崽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%B4%BD%E5%90%8E%EF%BC%8C%E5%9C%A8%E7%BB%88%E7%AB%AF%E8%BE%93%E5%85%A5%E5%B9%B6%E5%9B%9E%E8%BD%A6%EF%BC%9A"><span class="toc-number">3.4.</span> <span class="toc-text">启动崽后，在终端输入并回车：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B2%A1%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%EF%BC%8C%E4%BD%BF%E7%94%A8%E9%9C%86%E7%94%9F-%E5%86%B7%E6%9B%A6%E4%BF%A9%E4%BD%8D%E5%A4%A7%E4%BD%AC%E4%B8%89%E6%AC%A1%E5%BC%80%E5%8F%91%E7%9A%84QQbot%E6%8F%92%E4%BB%B6"><span class="toc-number">3.4.1.</span> <span class="toc-text">没公网IP的手动安装插件，使用霆生&amp;&amp;冷曦俩位大佬三次开发的QQbot插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%8B%E5%90%8E%EF%BC%8C%E5%8E%BBQQ%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E5%A4%8D%E5%88%B6%E4%BD%A0%E7%9A%84QQBot%E4%BF%A1%E6%81%AF"><span class="toc-number">3.5.</span> <span class="toc-text">之后，去QQ开放平台复制你的QQBot信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%8B%E5%90%8E%E6%8C%89%E6%A0%BC%E5%BC%8F%E5%9C%A8%E7%BB%88%E7%AB%AF%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%8B%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="toc-number">3.6.</span> <span class="toc-text">之后按格式在终端输入一下内容：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#QQBot%E8%AE%BE%E7%BD%AE-%E8%B4%A6%E5%8F%B7-ID-Token-AppSecret-1-%E9%A2%91%E9%81%93%E5%85%AC%E5%9F%9F%E6%88%96%E7%A7%81%E5%9F%9F"><span class="toc-number">3.6.1.</span> <span class="toc-text">#QQBot设置[账号]:[ID]:[Token]:[AppSecret]:1:[频道公域或私域]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B%EF%BC%9A"><span class="toc-number">3.6.1.1.</span> <span class="toc-text">举例：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%9C%80%E6%96%B0%E7%9A%84QQBOT%E9%BB%98%E8%AE%A4%E6%98%AF%E5%85%AC%E5%9F%9F%EF%BC%8C%E7%A7%81%E5%9F%9F%E7%9A%84%E8%87%AA%E5%B7%B1%E6%94%B9%E5%8E%BB"><span class="toc-number">3.7.</span> <span class="toc-text">目前最新的QQBOT默认是公域，私域的自己改去</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%82%BB%E9%80%BC%E8%85%BE%E8%AE%AF%E5%8F%88%E7%9E%8E%E5%87%A0%E6%8A%8A%E7%9A%84%E6%94%B9%E4%B8%9C%E8%A5%BF%EF%BC%8C%E5%90%8C%E4%B8%80%E4%B8%AA%E5%85%AC%E5%8F%B8%EF%BC%8C%E6%98%A8%E5%A4%A9%E7%94%B3%E8%AF%B7%E7%9A%84%E6%97%B6%E5%80%99%E7%BB%99%E7%9A%84%E6%98%AF%E7%A7%81%E5%9F%9F%EF%BC%8C%E4%BB%8A%E5%A4%A9%E6%B3%A8%E5%86%8C%E7%BB%99%E7%9A%84%E5%85%AC%E5%9F%9F-%E4%B8%BA%E4%BA%86%E6%8E%A8%E5%B9%BF%E9%A2%91%E9%81%93%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%97%A0%E6%89%80%E4%B8%8D%E7%94%A8%E5%85%B6%E6%9E%81%EF%BC%8C%E4%B9%9F%E4%B8%8D%E7%9C%8B%E7%9C%8B%E9%A2%91%E9%81%93%E7%8E%B0%E5%9C%A8%E6%94%B9%E7%89%88%E6%94%B9%E7%9A%84%E5%A4%9A%E7%83%82%EF%BC%8C%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%86%99%E7%9A%84%E5%A4%9A%E7%83%82"><span class="toc-number">3.7.1.</span> <span class="toc-text">傻逼腾讯又瞎几把的改东西，同一个公司，昨天申请的时候给的是私域，今天注册给的公域,为了推广频道机器人无所不用其极，也不看看频道现在改版改的多烂，开发文档写的多烂</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E6%94%B9%E7%A7%81%E5%9F%9F%E7%9A%84%E8%87%AA%E5%B7%B1%E8%BF%9B%E6%B2%99%E7%9B%92%E6%94%B9%EF%BC%88%E4%B9%9F%E5%BB%BA%E8%AE%AE%E6%94%B9%E7%A7%81%E5%9F%9F"><span class="toc-number">3.8.</span> <span class="toc-text">要改私域的自己进沙盒改（也建议改私域)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%8C%E6%88%90%E5%90%8E%E6%8C%89%E7%85%A7%E4%BE%8B%E5%AD%90%E9%87%8C%E5%90%A7%E5%90%8E%E9%9D%A2%E6%94%B9%E4%B8%BA1%E5%B0%B1%E8%A1%8C"><span class="toc-number">3.9.</span> <span class="toc-text">修改完成后按照例子里吧后面改为1就行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%8B%E5%90%8E%E8%89%BE%E7%89%B9%E4%BD%A0%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%8F%91%EF%BC%9A"><span class="toc-number">3.10.</span> <span class="toc-text">之后艾特你的机器人发：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%8B%E5%90%8E%E5%9B%9E%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%90%8E%E5%8F%B0%E7%9A%84%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8D%B3%E5%8F%AF%EF%BC%88%E6%B3%A8%E6%84%8F%E8%89%BE%E7%89%B9%E5%90%8E%E9%9D%A2%E7%9A%84%E7%A9%BA%E6%A0%BC%EF%BC%89"><span class="toc-number">3.11.</span> <span class="toc-text">之后回复机器人后台的验证码即可（注意艾特后面的空格）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%8A%A0%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">附加功能：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TRSS%E5%B4%BD%E9%BB%98%E8%AE%A4%E6%98%AF%E5%BC%80%E5%90%AF-%E8%BD%AC-%E7%9A%84"><span class="toc-number">4.1.</span> <span class="toc-text">TRSS崽默认是开启&#x2F;转#的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%B9%9F%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A8%E7%9A%84"><span class="toc-number">4.2.</span> <span class="toc-text">官方机器人也默认使用的&#x2F;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%86%E6%98%AF%E5%BC%80%E5%90%AF-%E8%BD%AC-%E5%90%8E%EF%BC%8C%E4%B8%80%E4%BA%9B%E5%8E%9F%E6%9C%AC%E5%B0%B1%E4%BD%BF%E7%94%A8-%E6%8C%87%E4%BB%A4%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%82%E5%B8%B8%EF%BC%8C%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">但是开启&#x2F;转#后，一些原本就使用&#x2F;指令的插件可能会异常，无法使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E4%BB%A5%E5%BB%BA%E8%AE%AE%E8%BF%98%E6%98%AF%E5%85%B3%E4%BA%86%E5%A5%BD%EF%BC%8C%E5%90%8E%E9%9D%A2%E8%87%AA%E5%B7%B1%E6%94%B9%E6%8F%92%E4%BB%B6%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E5%A4%A7%E9%83%A8%E5%88%86%E9%83%BD%E5%9C%A8%E6%8F%92%E4%BB%B6%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84apps%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%EF%BC%8C%E6%98%9F%E9%93%81%E8%BF%99%E4%BA%9B%E5%86%85%E7%BD%AE%E7%9A%84%E5%9C%A8lib-plugins%EF%BC%89"><span class="toc-number">4.4.</span> <span class="toc-text">所以建议还是关了好，后面自己改插件正则表达式（大部分都在插件目录下的apps文件夹中，星铁这些内置的在lib&#x2F;plugins）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D-%E8%BD%AC-%E7%9A%84%E5%8A%9F%E8%83%BD%E5%9C%A8config-config-bot-yaml%E9%87%8C%E9%9D%A2"><span class="toc-number">4.5.</span> <span class="toc-text">目前&#x2F;转#的功能在config&#x2F;config&#x2F;bot.yaml里面</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">其他功能：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E5%AE%98BOT%E9%9D%9E2000%E6%9C%88%E6%B4%BB%E4%B8%8D%E6%8F%90%E4%BE%9BMD%E6%9D%83%E9%99%90"><span class="toc-number">5.1.</span> <span class="toc-text">目前官BOT非2000月活不提供MD权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B%E5%86%85%E6%B5%8B%E6%9C%9F%E9%97%B4%E7%9A%84%E8%80%81BOT%E4%B9%9F%E5%9C%A8%E9%99%86%E7%BB%AD%E5%9B%9E%E6%94%B6%EF%BC%8C%E4%BD%8E%E4%BA%8E400%E6%97%A5%E6%B4%BB%E5%85%A8%E6%97%A0MD%E6%9D%83%E9%99%90%E4%BA%86%EF%BC%88%E5%86%85%E9%82%80%E5%8E%9F%E7%94%9F%E7%9A%84%E9%99%A4%E5%A4%96%EF%BC%89"><span class="toc-number">5.1.1.</span> <span class="toc-text">比赛内测期间的老BOT也在陆续回收，低于400日活全无MD权限了（内邀原生的除外）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%99%AEBOT%E5%8F%AA%E8%83%BD%E6%A0%B9%E6%8D%AE%E6%8C%89%E9%92%AEID%E5%8F%91%E9%9D%99%E6%80%81%E6%8C%89%E9%92%AE"><span class="toc-number">5.2.</span> <span class="toc-text">目前普BOT只能根据按钮ID发静态按钮</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">按钮配置：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="toc-number">6.1.</span> <span class="toc-text">完整示例：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#QQ%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%8F%8B%E9%93%BE"><span class="toc-number">6.1.1.</span> <span class="toc-text">QQ机器人友链</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/53427649/" title="使用Termux搭建云崽"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/Termux/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Termux搭建云崽"/></a><div class="content"><a class="title" href="/posts/53427649/" title="使用Termux搭建云崽">使用Termux搭建云崽</a><time datetime="2025-12-13T03:24:52.427Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7949d787/" title="使用Linux搭建云崽"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/Linux/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Linux搭建云崽"/></a><div class="content"><a class="title" href="/posts/7949d787/" title="使用Linux搭建云崽">使用Linux搭建云崽</a><time datetime="2025-12-13T03:24:52.425Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a806c713/" title="利用域名搭建免费的DDNS动态域名解析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://telegraph-image-buv.pages.dev/file/d2715a2728626d838067c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="利用域名搭建免费的DDNS动态域名解析"/></a><div class="content"><a class="title" href="/posts/a806c713/" title="利用域名搭建免费的DDNS动态域名解析">利用域名搭建免费的DDNS动态域名解析</a><time datetime="2025-12-13T03:24:52.422Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f1673a6/" title="好物推荐"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/Goods/4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="好物推荐"/></a><div class="content"><a class="title" href="/posts/f1673a6/" title="好物推荐">好物推荐</a><time datetime="2025-12-13T03:24:52.419Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2891e33e/" title="公共签名大全"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/Qsgin/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公共签名大全"/></a><div class="content"><a class="title" href="/posts/2891e33e/" title="公共签名大全">公共签名大全</a><time datetime="2025-12-13T03:24:52.416Z" title="发表于 2025-12-13 11:24:52">2025-12-13</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0"/></a><a class="github-badge" target="_blank" href="https://hexo.anheyu.com/" style="margin-inline:5px" data-title="本站使用AnZhiYu主题" title="本站使用AnZhiYu主题"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.9/img/Theme-AnZhiYu-2E67D3.svg" alt="本站使用AnZhiYu主题"/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title="本站项目由Github托管"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" alt="本站项目由Github托管"/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" data-title="浙ICP备2023037443号" title="浙ICP备2023037443号"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.shields.io/badge/ICP%E5%A4%87%E6%A1%88-%E6%B5%99ICP%E5%A4%872023037443%E5%8F%B7-blue" alt="浙ICP备2023037443号"/></a><a class="github-badge" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33078402101284" style="margin-inline:5px" data-title="浙公网安备33078402101284号" title="浙公网安备33078402101284号"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.shields.io/badge/%E5%85%AC%E5%AE%89%E5%A4%87%E6%A1%88-%E6%B5%99%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%8733078402101284%E5%8F%B7-informational" alt="浙公网安备33078402101284号"/></a></p></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="重装小兔" target="_blank">重装小兔</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">14</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://hexo.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="17547883300" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.7.0",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 重装小兔 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="/js/custom.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.2,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/potion-Maker-Pio/index.json"},"display":{"position":"left","width":250,"height":500,"hOffset":15,"vOffset":-20},"mobile":{"show":false,"scale":0.6},"tips":{"mouseover":["嗨，你好呀！","我是Pio！","今天天气真好~","摸摸我的头吧~"],"click":["哎呀，别戳我！","痒痒的！","哼，不理你了~","再戳我就要生气了！"]},"log":false});</script></body></html>
